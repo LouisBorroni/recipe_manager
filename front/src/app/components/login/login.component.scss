@@ -1,0 +1,112 @@
+/* Assurez-vous que html et body occupent toute la taille de l'écran */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Style de la page de login */
+  .login-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Aligne les éléments vers le haut */
+    align-items: center;         /* Centre horizontalement */
+    padding-top: 50px;           /* Ajoute de l'espace en haut */
+    background-image: url('../../assets/login_register_background.JPG'); /* Remplacez par l'URL de votre image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  
+  /* Style du titre */
+  .title {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .title h1 {
+    font-size: 3rem;
+    text-align: center;
+    color: white;
+  }
+  
+  /* Style du formulaire de login */
+  .login-form {
+    background-color: rgba(255, 255, 255, 0.9); /* Un peu plus opaque pour mieux voir le contenu */
+    padding: 20px;
+    border-radius: 10px;
+    width: 320px; /* Légèrement plus large pour que les inputs et le bouton soient mieux proportionnés */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style des éléments du formulaire */
+  .login-form label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  /* Style des inputs */
+  .login-form input {
+    width: 100%;
+    padding: 10px 12px; /* Ajuste le padding pour que les champs soient plus confortables */
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem; /* Taille du texte dans les inputs */
+    box-sizing: border-box; /* Garantit que la largeur des inputs inclut les bordures et le padding */
+  }
+  
+  /* Amélioration de l'aspect des inputs au focus */
+  .login-form input:focus {
+    border-color: #4CAF50; /* Couleur du bord quand l'input est sélectionné */
+    outline: none; /* Enlève l'effet de bordure par défaut */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.6); /* Ajoute un léger halo autour de l'input */
+  }
+  
+  /* Style du bouton */
+  .login-form button {
+    width: 100%;
+    padding: 12px 0; /* Hauteur ajustée pour que le bouton soit un peu plus grand */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Effet au survol du bouton */
+  .login-form button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Réduire la taille des inputs pour mieux les adapter au bouton */
+  .login-form input {
+    font-size: 1rem;
+    padding: 10px 12px; /* Un peu plus grand pour plus de confort */
+  }
+  
+  /* Style du bouton au survol */
+  .login-form button:hover {
+    background-color: #45a049;
+  }
+  
+.register-link {
+  text-align: center;
+  margin-top: 15px;
+  position: relative; /* Assurez-vous que l'élément est dans le flux de la page */
+  z-index: 10; /* S'assure que le lien est au-dessus des autres éléments */
+}
+
+.register-link a {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: bold;
+  pointer-events: auto; /* Assurez-vous que le lien est interactif */
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}

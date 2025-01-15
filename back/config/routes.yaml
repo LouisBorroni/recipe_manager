@@ -10,3 +10,8 @@ api_login_check:
 api_register:
     path: /api/register
     controller: App\Controller\RegistrationController::register
+
+token_validate:
+    path: /api/validate-token
+    controller: App\Controller\TokenValidationController::validateToken
+    methods: [POST]

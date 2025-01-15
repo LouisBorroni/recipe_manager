@@ -1,9 +1,19 @@
-<form (ngSubmit)="onSubmit()">
-  <label for="username">Username:</label>
-  <input id="username" name="username" [(ngModel)]="credentials.username" required />
+<div class="login-page">
+  <div class="title">
+    <h1>Recipe App</h1>
+  </div>
+  <form (ngSubmit)="onSubmit()" class="login-form">
+    <label for="username">Username:</label>
+    <input id="username" name="username" [(ngModel)]="credentials.username" required />
 
-  <label for="password">Password:</label>
-  <input id="password" name="password" type="password" [(ngModel)]="credentials.password" required />
+    <label for="password">Password:</label>
+    <input id="password" name="password" type="password" [(ngModel)]="credentials.password" required />
 
-  <button type="submit">Login</button>
-</form>
+    <button type="submit">Login</button>
+    
+    <!-- Lien vers la page d'inscription -->
+    <p class="register-link">
+      Vous n'avez pas de compte chez nous ? <a class="button" href="http://localhost:4200/register">Inscrivez-vous ici</a>
+    </p>
+  </form>   
+</div>
