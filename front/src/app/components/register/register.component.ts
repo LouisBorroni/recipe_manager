@@ -23,8 +23,7 @@ export class RegisterComponent {
 
   async onSubmit() {
     if (this.user.password !== this.user.confirmPassword) {
-      console.error('Les mots de passe ne correspondent pas');
-      return; // Empêche l'envoi du formulaire si les mots de passe ne correspondent pas
+      return;
     }
 
     try {
