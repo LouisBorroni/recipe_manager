@@ -11,12 +11,12 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule]
 })
 export class LoginComponent {
-  credentials: { username: string; password: string } = { username: '', password: '' };
+  credentials: { email: string; password: string } = { email: '', password: '' };
 
   constructor(private authService: AuthService) {}
 
   async onSubmit() {
-    if (!this.credentials.username || !this.credentials.password) {
+    if (!this.credentials.email || !this.credentials.password) {
       console.error('Both username and password are required!');
       return;
     }

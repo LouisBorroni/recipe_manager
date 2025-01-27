@@ -29,6 +29,7 @@ export class AuthService {
           if (data.isValid) {
             observer.next(true); // Le token est valide
           } else {
+            console.log("salut");
             observer.next(false); // Le token n'est pas valide
           }
           observer.complete();
@@ -46,7 +47,7 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  login(credentials: { username: string; password: string }): Promise<any> {
+  login(credentials: { email: string; password: string }): Promise<any> {
     return fetch(`${this.baseUrl}/login_check`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -95,7 +96,7 @@ export class AuthService {
         
         // Après l'inscription réussie, on appelle la méthode login
         this.login({
-          username: user.email,    // Utilisez les informations d'enregistrement pour se connecter
+          email: user.email,    // Utilisez les informations d'enregistrement pour se connecter
           password: user.password,
         });
       })
