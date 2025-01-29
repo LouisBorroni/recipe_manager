@@ -11,6 +11,10 @@ export class AuthService {
   constructor(private router: Router) {}
 
   validateToken(): Observable<boolean> {
+    if (typeof localStorage === 'undefined') {
+      console.warn('localStorage is not available');
+      return of(false);
+    }
     const token = localStorage.getItem('token');
     if (!token) {
       return of(false); // Aucun token, retour false immédiatement

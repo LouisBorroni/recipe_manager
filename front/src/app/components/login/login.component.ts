@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../servcices/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, RouterLink]
 })
 export class LoginComponent {
   credentials: { username: string; password: string } = { username: '', password: '' };
