@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink]
+  imports: [CommonModule, FormsModule]
 })
 export class RegisterComponent {
   user: { username: string; email: string; password: string; confirmPassword: string } = {

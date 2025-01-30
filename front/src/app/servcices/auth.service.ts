@@ -12,12 +12,11 @@ export class AuthService {
 
   validateToken(): Observable<boolean> {
     if (typeof localStorage === 'undefined') {
-      console.warn('localStorage is not available');
       return of(false);
     }
     const token = localStorage.getItem('token');
     if (!token) {
-      return of(false); // Aucun token, retour false immédiatement
+      return of(false); 
     }
 
     return new Observable<boolean>((observer) => {
@@ -25,15 +24,15 @@ export class AuthService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Envoi du token dans l'en-tête Authorization
+          'Authorization': `Bearer ${token}`, 
         },
       })
         .then((response) => response.json())
         .then((data) => {
           if (data.isValid) {
-            observer.next(true); // Le token est valide
+            observer.next(true); 
           } else {
-            observer.next(false); // Le token n'est pas valide
+            observer.next(false); 
           }
           observer.complete();
         })
@@ -94,14 +93,8 @@ export class AuthService {
         return response.json();
       })
       .then((data) => {
-        // Si l'enregistrement est réussi, on utilise les mêmes informations de connexion pour se connecter immédiatement
         console.log('User registered successfully!');
-        
-        // Après l'inscription réussie, on appelle la méthode login
-        this.login({
-          username: user.email,    // Utilisez les informations d'enregistrement pour se connecter
-          password: user.password,
-        });
+        this.router.navigate(['/login'])
       })
       .catch(error => {
         console.error('Register error:', error);

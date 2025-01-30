@@ -14,8 +14,7 @@ const routes: Routes = [
     canActivate: [AuthGuard], // Protection avec le guard
   },
   {
-    path: '**',
-    redirectTo: '/home',
+    path: '**', component: LoginComponent 
   },
 ];
 

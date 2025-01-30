@@ -2,19 +2,19 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../servcices/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink]
+  imports: [CommonModule, FormsModule]
 })
 export class LoginComponent {
   credentials: { username: string; password: string } = { username: '', password: '' };
 
   constructor(private authService: AuthService) {}
+  
 
   async onSubmit() {
     if (!this.credentials.username || !this.credentials.password) {
