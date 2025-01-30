@@ -13,16 +13,17 @@ export class AuthGuard implements CanActivate {
     return this.authService.validateToken().pipe(
       map((isValid) => {
         if (isValid) {
-          return true; // Le token est valide
+          return true;
         } else {
-          this.router.navigate(['/login']); // Redirection si le token est invalide
+          this.router.navigate(['/login']);
           return false;
         }
       }),
       catchError(() => {
-        this.router.navigate(['/login']); // Si erreur de validation, redirection vers login
+        this.router.navigate(['/login']);
         return of(false);
       })
     );
   }
 }
+

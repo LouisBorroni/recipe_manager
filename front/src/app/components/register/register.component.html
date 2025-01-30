@@ -1,6 +1,6 @@
 <div class="register-page">
   <div class="title">
-    <h1>Recipe App</h1>
+    <h1>Recipe manager</h1>
   </div>
   <form (ngSubmit)="onSubmit()" class="register-form">
     <label for="email">Email:</label>
@@ -11,16 +11,15 @@
 
     <label for="confirmPassword">Confirmation:</label>
     <input type="password" id="confirmPassword" [(ngModel)]="user.confirmPassword" name="confirmPassword" required />
-
-    <!-- Message d'erreur si les mots de passe ne correspondent pas -->
-    <div *ngIf="user.password && user.confirmPassword && user.password !== user.confirmPassword" class="error-message">
-      Les mots de passe ne correspondent pas !
-    </div>
-
-    <button type="submit">Register</button>
+    @if(user.password && user.confirmPassword && user.password !== user.confirmPassword){
+      <span class="error-message">
+        Les mots de passe ne correspondent pas !
+      </span>
+    }    
+    <button type="submit">S'inscrire</button>
 
     <p class="login-link">
-      Vous avez déjà un compte ? <a href="http://localhost:4200/login">Connectez-vous ici</a>
+      Vous avez déjà un compte ? <a href="/login"><br>Connectez-vous ici</a>
     </p>
   </form>
 </div>

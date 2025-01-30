@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { User } from '../../../models/user.model';
+import { clearUser, setUser } from '../stores/user/user.actions';
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root',
@@ -8,42 +12,49 @@ import { Observable, of } from 'rxjs';
 export class AuthService {
   private baseUrl = 'http://localhost:8000/api';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private store: Store) {}
 
   validateToken(): Observable<boolean> {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      return of(false); // Aucun token, retour false immédiatement
+    if (typeof localStorage === 'undefined') {
+      return of(false);
     }
 
-    return new Observable<boolean>((observer) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return of(false);
+    }
+
+    return from(
       fetch(`${this.baseUrl}/validate-token`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Envoi du token dans l'en-tête Authorization
+          'Authorization': `Bearer ${token}`,
         },
       })
         .then((response) => response.json())
         .then((data) => {
           if (data.isValid) {
-            observer.next(true); // Le token est valide
+            const user: User = {
+              username: data.user.username,
+              roles: data.user.roles,
+            };
+            this.store.dispatch(setUser({ user }));
+            return true; 
           } else {
-            console.log("salut");
-            observer.next(false); // Le token n'est pas valide
+            return false; 
           }
-          observer.complete();
         })
         .catch((error) => {
           console.error('Erreur de validation du token:', error);
-          observer.next(false); 
-          observer.complete();
-        });
-    });
+          return false;
+        })
+    );
   }
 
   logout() {
     localStorage.removeItem('token');
+    this.store.dispatch(clearUser());
     this.router.navigate(['/login']);
   }
 
@@ -62,13 +73,8 @@ export class AuthService {
         return response.json();
       })
       .then((data) => {
-        // Enregistrez le token reçu après une connexion réussie
-        localStorage.setItem('token', data.token);  // Assurez-vous que vous recevez un token dans la réponse
-
-        // Redirigez l'utilisateur vers la page d'accueil après la connexion réussie
-        console.log('User logged in successfully!');
-        this.router.navigate(['/home']);  // Redirection vers la page d'accueil
-        return data;  // Retourne la réponse après la redirection
+        localStorage.setItem('token', data.token);  
+        this.router.navigate(['/home']); 
       })
       .catch(error => {
         console.error('Login error:', error);
@@ -91,14 +97,7 @@ export class AuthService {
         return response.json();
       })
       .then((data) => {
-        // Si l'enregistrement est réussi, on utilise les mêmes informations de connexion pour se connecter immédiatement
-        console.log('User registered successfully!');
-        
-        // Après l'inscription réussie, on appelle la méthode login
-        this.login({
-          email: user.email,    // Utilisez les informations d'enregistrement pour se connecter
-          password: user.password,
-        });
+        this.router.navigate(['/login']);
       })
       .catch(error => {
         console.error('Register error:', error);
