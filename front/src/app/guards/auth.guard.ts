@@ -10,7 +10,6 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
-    console.log("salut");
     return this.authService.validateToken().pipe(
       map((isValid) => {
         if (isValid) {
@@ -21,9 +20,10 @@ export class AuthGuard implements CanActivate {
         }
       }),
       catchError(() => {
-        this.router.navigate(['']);
+        this.router.navigate(['/login']);
         return of(false);
       })
     );
   }
 }
+

@@ -19,7 +19,6 @@ class TokenValidationController extends AbstractController
 
     public function validateToken(Request $request): JsonResponse
     {
-        // Récupérer le token JWT à partir du header Authorization
         $authHeader = $request->headers->get('Authorization');
         if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
             return new JsonResponse(['isValid' => false, 'message' => 'No token provided'], 401);
@@ -28,12 +27,16 @@ class TokenValidationController extends AbstractController
         $token = $matches[1];
 
         try {
-            // Utiliser JWTEncoderInterface pour décoder et valider le token
             $decodedToken = $this->jwtEncoder->decode($token);
 
-            // Vérifier si le token est valide (s'il retourne des données)
             if ($decodedToken) {
-                return new JsonResponse(['isValid' => true, 'decoded' => $decodedToken]);
+                return new JsonResponse([
+                    'isValid' => true,
+                    'user' => [
+                        'username' => $decodedToken['username'],
+                        'roles' => $decodedToken['roles'],
+                    ]
+                ]);
             } else {
                 return new JsonResponse(['isValid' => false, 'message' => 'Invalid token'], 401);
             }
@@ -42,3 +45,4 @@ class TokenValidationController extends AbstractController
         }
     }
 }
+

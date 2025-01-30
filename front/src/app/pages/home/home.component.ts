@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../../servcices/auth.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  imports: [CommonModule],
 })
-export class HomeComponent implements OnInit{
-  constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {
-    console.log("salut");
+export class HomeComponent {
+  constructor(private authService: AuthService) {
   }
+
   logout() {
-    this.authService.logout();
+    this.authService.logout()
   }
 }

@@ -1,7 +1,11 @@
 <header class="app-header">
-    <div class="container">
-      <img src="/assets/logo-carotte.png" alt="Logo Carotte" class="logo" />
-      <h1 class="title">Recipe Manager</h1>
+  <div class="container">
+    <img src="/assets/logo-carotte.png" alt="Logo Carotte" class="logo" />
+    <h1 class="title">Recipe Manager</h1>
+    <!-- Affiche le nom de l'utilisateur si connecté -->
+    <div *ngIf="user$ | async as user">
+      <span>Bienvenue, {{ user?.username }}</span>
+      <button (click)="logout()">Se déconnecter</button>
     </div>
-  </header>
-  
+  </div>
+</header>
