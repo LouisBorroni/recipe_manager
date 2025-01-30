@@ -1,0 +1,80 @@
+/* Sidebar */
+.sidebar {
+  width: 300px;
+  height: 100%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Style de base pour tous les boutons */
+.sidebar-btn {
+  background-color: #ffffff; /* Fond blanc */
+  color: #4caf50; /* Texte vert */
+  padding: 12px 15px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Style pour l'icône à gauche du texte dans les boutons */
+.sidebar-btn i {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+/* Lorsque le bouton est sélectionné, ajoute une bordure verte à gauche */
+.sidebar-btn.active {
+  border-left: 5px solid #4caf50; /* Rectangle vert à gauche */
+  background-color: #ffffff; /* Fond blanc */
+  color: #4caf50; /* Texte vert */
+}
+
+/* Style spécifique pour le bouton 'Nouvelle recette' */
+.new-recipe-btn {
+  background-color: #4caf50; /* Fond vert */
+  color: white; /* Texte blanc */
+  padding: 15px 20px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  align-items: center; /* Alignement vertical centré */
+  justify-content: flex-start; /* Alignement horizontal à gauche */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  transition: all 0.3s ease; /* Transition pour effet au clic */
+}
+
+/* Espace entre l'icône et le texte */
+.new-recipe-btn i {
+  margin-right: 15px; /* Ajoute de l'espace entre l'icône et le texte */
+  font-size: 20px; /* Taille de l'icône */
+}
+
+/* Effet au survol du bouton 'Nouvelle recette' */
+.new-recipe-btn:hover {
+  background-color: #45a049; /* Couleur légèrement plus foncée */
+  transform: translateY(-2px); /* Légère remontée lors du survol */
+}
+
+/* Effet lors de la sélection du bouton 'Nouvelle recette' */
+#new-recipe-btn.active {
+  background-color: #388e3c; /* Fond vert plus foncé */
+  border-left: 5px solid #ffffff; /* Bordure blanche à gauche pour la sélection */
+  color: white; /* Texte blanc */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre plus forte lorsque sélectionné */
+}

@@ -1,0 +1,15 @@
+<div class="sidebar">
+    <button id="new-recipe-btn" class="new-recipe-btn">
+      <i class="fas fa-plus"></i> Nouvelle recette
+    </button>
+    <button class="sidebar-btn" [class.active]="selectedButton === 'recipes'" (click)="selectButton('recipes')">
+      <i class="fas fa-square"></i> Mes Recettes
+    </button>
+    <button class="sidebar-btn" [class.active]="selectedButton === 'trends'" (click)="selectButton('trends')">
+      <i class="fas fa-fire"></i> Tendances
+    </button>
+    <button class="sidebar-btn" [class.active]="selectedButton === 'liked'" (click)="selectButton('liked')">
+      <i class="fas fa-heart"></i> Recettes likées
+    </button>
+  </div>
+  
