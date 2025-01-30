@@ -2,9 +2,12 @@
   background-color: #4caf50;
   padding: 10px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.container {
+.left-section {
   display: flex;
   align-items: center;
 }
@@ -18,4 +21,36 @@
   font-size: 24px;
   font-weight: bold;
   color: #ffffff;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+span {
+  color: #ffffff;
+  margin-right: 10px;
+}
+
+.logout-btn {
+  padding: 5px 10px;
+  background-color: #ffffff;
+  color: #4caf50;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #f1f1f1;
 }

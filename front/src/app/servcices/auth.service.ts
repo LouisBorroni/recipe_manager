@@ -39,16 +39,15 @@ export class AuthService {
               username: data.user.username,
               roles: data.user.roles,
             };
-            // Enregistrer l'utilisateur dans le store
             this.store.dispatch(setUser({ user }));
-            return true; // Token valide
+            return true; 
           } else {
-            return false; // Token invalide
+            return false; 
           }
         })
         .catch((error) => {
           console.error('Erreur de validation du token:', error);
-          return false; // Erreur lors de la validation du token
+          return false;
         })
     );
   }
