@@ -1,4 +1,4 @@
 <div class="home-page">
-    <app-sidebar></app-sidebar>
-    <app-home-content></app-home-content>
+    <app-sidebar (sectionChange)="onSectionChange($event)"></app-sidebar>
+    <app-home-content [selectedSection]="selectedSection"></app-home-content>
 </div>

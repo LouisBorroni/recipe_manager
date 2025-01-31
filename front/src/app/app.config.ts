@@ -8,7 +8,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { userReducer } from './stores/user/user.reducer';
-import { provideStoreDevtools } from '@ngrx/store-devtools'; 
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+
 
 
 export const appConfig: ApplicationConfig = {
@@ -19,6 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     importProvidersFrom(FormsModule, CommonModule),
     provideStore({ user: userReducer }),
-    provideStoreDevtools({ maxAge: 25, autoPause: true, trace: false })
+    provideStoreDevtools({ maxAge: 25, autoPause: true, trace: false }),
   ]
 };

@@ -11,10 +11,14 @@ import { HomeContentComponent } from '../../components/home-content/home-content
   imports: [CommonModule, SidebarComponent, HomeContentComponent],
 })
 export class HomeComponent {
+  selectedSection: string = 'recipes';
   constructor(private authService: AuthService) {
   }
-
   logout() {
     this.authService.logout()
+  }
+
+  onSectionChange(section: string) {
+    this.selectedSection = section;
   }
 }
