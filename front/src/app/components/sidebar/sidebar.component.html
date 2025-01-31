@@ -1,5 +1,5 @@
 <div class="sidebar">
-    <button id="new-recipe-btn" class="new-recipe-btn">
+    <button id="new-recipe-btn" class="new-recipe-btn" (click)="openModal()">
       <i class="fas fa-plus"></i> Nouvelle recette
     </button>
     <button class="sidebar-btn" [class.active]="selectedButton === 'recipes'" (click)="selectButton('recipes')">
@@ -11,5 +11,8 @@
     <button class="sidebar-btn" [class.active]="selectedButton === 'liked'" (click)="selectButton('liked')">
       <i class="fas fa-heart"></i> Recettes likées
     </button>
+
+
+    <app-recipe-creation-modal *ngIf="isModalVisible" (closeModal)="closeModal()" (recipeCreated)="handleRecipeCreated()"></app-recipe-creation-modal>
   </div>
   
