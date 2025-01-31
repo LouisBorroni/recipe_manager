@@ -143,7 +143,6 @@ textarea {
   background-color: #f9f9f9;
 }
 
-/* Effet de focus sur les inputs */
 input[type="text"]:focus,
 select:focus,
 textarea:focus {
@@ -152,14 +151,12 @@ textarea:focus {
   background-color: #e8f5e9;
 }
 
-/* Effet de survol des inputs */
 input[type="text"]:hover,
 select:hover,
 textarea:hover {
   border-color: #888;
 }
 
-/* Style des labels */
 label {
   font-size: 1rem;
   margin-bottom: 5px;
@@ -167,43 +164,38 @@ label {
   color: #333;
 }
 
-/* Style pour les options du select */
 select {
   background-color: #ffffff;
   cursor: pointer;
 }
 
-/* Style pour les éléments de la liste des étapes */
 textarea {
   min-height: 60px;
   font-size: 1rem;
   padding: 10px;
 }
 
-/* Effet de focus dans les textarea */
 textarea:focus {
   border-color: #4caf50;
   outline: none;
   background-color: #e8f5e9;
 }
 
-/* Section Informations principales - Ajout d'un espace entre la catégorie et le bouton image */
 .left-section label {
   margin-bottom: 10px;
 }
 
 .left-section select {
-  margin-bottom: 15px; /* Ajouter un espace entre la catégorie et le champ image */
+  margin-bottom: 15px;
 }
 
-/* Style général de l'import de l'image */
 .image-upload {
   position: relative;
   margin-bottom: 15px;
 }
 
 .image-upload input[type="file"] {
-  display: none; /* Masquer l'input original */
+  display: none;
 }
 
 .image-upload label {
@@ -217,7 +209,7 @@ textarea:focus {
   font-size: 16px;
   width: 100%;
   transition: background-color 0.3s;
-  margin-bottom: 15px; /* Ajouter un espacement sous le label pour l'import de l'image */
+  margin-bottom: 15px;
 }
 
 .image-upload label:hover {
@@ -232,14 +224,13 @@ textarea:focus {
 }
 
 .image-preview img {
-  max-width: 150px; /* Limiter la taille de l'image affichée */
+  max-width: 150px;
   max-height: 150px;
   border-radius: 5px;
   object-fit: cover;
   border: 2px solid #ccc;
 }
 
-/* Pour gérer les erreurs si l'image n'est pas valide (si vous voulez afficher un message d'erreur) */
 .image-upload input[type="file"]:invalid {
   border: 1px solid red;
 }

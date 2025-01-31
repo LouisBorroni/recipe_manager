@@ -6,7 +6,7 @@
   
       <form [formGroup]="recipeForm" (ngSubmit)="submitRecipe()">
         <div class="form-sections">
-          <!-- Section Informations principales -->
+
           <div class="left-section">
             <label for="name">Nom de la recette</label>
             <input type="text" id="name" formControlName="name" required />
@@ -19,18 +19,17 @@
             </select>
   
             <div class="image-upload">
-              <label for="image">Image</label>
-              <input type="file" id="image" (change)="onImageChange($event)" formControlName="image" accept="image/*" />
-              <div *ngIf="imagePreview" class="image-preview">
-                <img [src]="imagePreview" alt="Image sélectionnée" />
+                <label for="image">Image</label>
+                <input type="file" id="image" (change)="onImageChange($event)" accept="image/*" />
+                <div *ngIf="imagePreview" class="image-preview">
+                  <img [src]="imagePreview" alt="Image sélectionnée" />
+                </div>
               </div>
-            </div>
+              <input type="hidden" formControlName="image" />                                
           </div>
   
-          <!-- Séparateur -->
           <div class="separator"></div>
   
-          <!-- Section Étapes de cuisson -->
           <div class="right-section">
             <label>Étapes de cuisson</label>
             <div formArrayName="cookingSteps" class="steps-list">
@@ -43,7 +42,6 @@
           </div>
         </div>
   
-        <!-- Bouton Valider -->
         <button type="submit" class="submit-btn">Valider</button>
       </form>
     </div>

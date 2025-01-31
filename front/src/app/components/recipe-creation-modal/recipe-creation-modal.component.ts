@@ -2,13 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl, ValidationErrors, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// Validator personnalisé pour le FormArray
 export function cookingStepsValidator(control: AbstractControl): ValidationErrors | null {
   const formArray = control as FormArray;
   if (formArray.length > 0) {
-    return null; // valid si le FormArray a des éléments
+    return null;
   }
-  return { 'cookingStepsRequired': true }; // invalid si le FormArray est vide
+  return { 'cookingStepsRequired': true };
 }
 
 @Component({
@@ -28,7 +27,7 @@ export class RecipeCreationModalComponent {
       name: ['', Validators.required],
       category: ['', Validators.required],
       image: [null, Validators.required],
-      cookingSteps: this.fb.array([], cookingStepsValidator) // Application du validateur ici
+      cookingSteps: this.fb.array([], cookingStepsValidator)
     });
   }
 
@@ -38,10 +37,10 @@ export class RecipeCreationModalComponent {
 
   addStep() {
     const stepGroup = this.fb.group({
-      step: ['', Validators.required]  // Chaque étape est une chaîne vide au départ et requiert une saisie
+      step: ['', Validators.required]  
     });
 
-    this.cookingSteps.push(stepGroup);  // Ajoute le groupe au FormArray
+    this.cookingSteps.push(stepGroup); 
   }
 
   removeStep(index: number) {
@@ -49,20 +48,21 @@ export class RecipeCreationModalComponent {
   }
 
   onImageChange(event: any) {
-    const file = event.target.files[0];  // Récupérer le fichier sélectionné
+    const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        this.imagePreview = reader.result; // Image en base64 ou Blob
-        this.recipeForm.get('image')?.setValue(file); // Stocker l'image dans le formulaire
+        this.imagePreview = reader.result as string | ArrayBuffer;
+        this.recipeForm.patchValue({ image: this.imagePreview });
       };
-      reader.readAsDataURL(file); // Convertir l'image en base64 pour affichage
+      reader.readAsDataURL(file);
     }
   }
 
   submitRecipe() {
     if (this.recipeForm.valid && this.cookingSteps.length > 0) {
-      this.closeModal.emit(); 
+      this.closeModal.emit();
+      console.log(this.recipeForm)
     } else {
       console.log('Formulaire invalide');
     }
