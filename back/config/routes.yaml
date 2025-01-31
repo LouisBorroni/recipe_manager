@@ -1,17 +1,17 @@
 controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+  resource:
+    path: ../src/Controller/
+    namespace: App\Controller
+  type: attribute
 
 api_login_check:
-    path: /api/login_check
+  path: /api/login_check
 
 api_register:
-    path: /api/register
-    controller: App\Controller\RegistrationController::register
+  path: /api/register
+  controller: App\Controller\RegistrationController::register
 
 token_validate:
-    path: /api/validate-token
-    controller: App\Controller\TokenValidationController::validateToken
-    methods: [POST]
+  path: /api/validate-token
+  controller: App\Controller\TokenValidationController::validateToken
+  methods: [POST]
