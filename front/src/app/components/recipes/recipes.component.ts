@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RecipeModalComponent } from '../../shared/recipe-modale/recipe-modale.component';
+import { RecipeModaleComponent } from '../../shared/recipe-modale/recipe-modale.component';
 
 @Component({
   selector: 'app-recipes',
-  imports: [CommonModule, RecipeModalComponent],
+  imports: [CommonModule, RecipeModaleComponent],
   templateUrl: './recipes.component.html',
   styleUrl: './recipes.component.scss'
 })
@@ -188,7 +188,22 @@ export class RecipesComponent {
 
   currentPage = 0;
   itemsPerPage = 8;
+  selectedRecipe: any = null;
+  isModalVisible = false; 
 
+
+  openModal(recipe: any) {
+    this.selectedRecipe = recipe;
+    this.isModalVisible = true;
+  }
+
+  closeModal() {
+    this.isModalVisible = false;
+    this.selectedRecipe = null;
+  }
+
+
+  
 
   get paginatedRecipes() {
     const start = this.currentPage * this.itemsPerPage;
@@ -215,7 +230,6 @@ export class RecipesComponent {
     recipe.liked = !recipe.liked;
   }
 
-  // Fonction pour obtenir l'icône de la catégorie
   getCategoryIcon(category: string): string {
     switch (category) {
       case 'Dessert':
@@ -225,7 +239,7 @@ export class RecipesComponent {
       case 'Entrée':
         return 'fa-lemon';
       default:
-        return 'fa-question-circle';  // Icône par défaut si catégorie inconnue
+        return 'fa-question-circle';
     }
   }
 }

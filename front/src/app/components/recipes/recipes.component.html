@@ -1,32 +1,27 @@
 <div class="recipes-page">
     <h2>Mes Recettes</h2>
   
-    <!-- Grille des recettes -->
     <div class="recipes-grid">
-      <div class="recipe-card" *ngFor="let recipe of paginatedRecipes">
+      <div class="recipe-card" *ngFor="let recipe of paginatedRecipes" (click)="openModal(recipe)">
         <img [src]="recipe.image" [alt]="recipe.name" />
         <h3>{{ recipe.name }}</h3>
   
-        <!-- Catégorie avec icône -->
         <div class="category">
           <i class="fas" [ngClass]="getCategoryIcon(recipe.category)"></i>
           <span>{{ recipe.category }}</span>
         </div>
   
         <div class="recipe-details">
-          <!-- Nom du créateur avec icône utilisateur -->
           <div class="creator">
             <i class="fas fa-user"></i>
             <span>{{ recipe.creator }}</span>
           </div>
   
-          <!-- Nombre de vues avec icône œil -->
           <div class="views">
             <i class="fas fa-eye"></i>
             <span>{{ recipe.views }} vues</span>
           </div>
   
-          <!-- Bouton like avec icône cœur -->
           <div class="like">
             <button (click)="toggleLike(recipe)" [class.liked]="recipe.liked">
               <i class="fas fa-heart"></i>
@@ -36,11 +31,15 @@
       </div>
     </div>
   
-    <!-- Pagination -->
+    <app-recipe-modale 
+      [isVisible]="isModalVisible" 
+      [selectedRecipe]="selectedRecipe" 
+      (close)="closeModal()">
+    </app-recipe-modale>
+
     <div class="pagination">
       <button (click)="prevPage()" [disabled]="currentPage === 0">Précédent</button>
       <span>Page {{ currentPage + 1 }} / {{ getTotalPages() }}</span>
       <button (click)="nextPage()" [disabled]="currentPage + 1 >= getTotalPages()">Suivant</button>
     </div>
-  </div>
-  
+</div>

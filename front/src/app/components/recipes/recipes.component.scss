@@ -72,6 +72,9 @@
     transition: transform 0.2s ease-in-out;
     opacity: 0;
     animation: fadeInCard 1s forwards;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .recipe-card img {
