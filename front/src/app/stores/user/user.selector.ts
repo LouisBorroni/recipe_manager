@@ -10,3 +10,8 @@ export const selectUser = createSelector(
   selectUserState,
   (state: UserState) => state.user
 );
+
+export const selectRecipes = createSelector(
+  selectUserState,
+  (state: UserState) => state.user ? state.user.recipes : []
+);

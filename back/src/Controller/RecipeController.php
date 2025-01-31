@@ -135,7 +135,7 @@ class RecipeController extends AbstractController
         return new JsonResponse(['message' => 'Recipe deleted successfully'], JsonResponse::HTTP_OK);
     }
 
-    #[Route('/api/recipe/{id}/add-view', name: 'add_recipe_view', methods: ['POST'])]
+    #[Route('/api/recipe/add-view/{id}', name: 'add_recipe_view', methods: ['POST'])]
     public function addView(int $id): JsonResponse
     {
         $recipe = $this->recipeRepository->find($id);

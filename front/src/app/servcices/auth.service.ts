@@ -14,6 +14,35 @@ export class AuthService {
 
   constructor(private router: Router, private store: Store) {}
 
+  getUserInfo(token: string): Observable<User> {
+    return from(
+      fetch(`${this.baseUrl}/user_infos`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data) {
+            const user: User = {
+              username: data.email,
+              roles: data.roles,
+              recipes: data.userRecipes
+            }
+            this.store.dispatch(setUser({ user }));
+            return user
+          } else {
+            throw new Error('User data not found');
+          }
+        })
+        .catch((error) => {
+          console.error('Erreur lors de la récupération des infos utilisateur:', error);
+          throw error;
+        })
+    );
+  }
   validateToken(): Observable<boolean> {
     if (typeof localStorage === 'undefined') {
       return of(false);
@@ -35,9 +64,11 @@ export class AuthService {
         .then((response) => response.json())
         .then((data) => {
           if (data.isValid) {
+            this.getUserInfo(token);
             const user: User = {
               username: data.user.username,
               roles: data.user.roles,
+              recipes: []
             };
             this.store.dispatch(setUser({ user }));
             return true; 

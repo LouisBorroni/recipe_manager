@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-recipe-modale',
@@ -11,7 +11,7 @@ export class RecipeModaleComponent {
   @Input() isVisible: boolean = false;  
   @Input() selectedRecipe: any;
   @Output() close = new EventEmitter<void>(); 
-
+  
   closeModal() {
     this.close.emit();
   }
