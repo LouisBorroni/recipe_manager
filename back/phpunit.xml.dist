@@ -9,7 +9,7 @@
         <ini name="error_reporting" value="-1" />
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
-        <server name="DATABASE_URL" value="mysql://db_user:db_password@127.0.0.1:3306/recipe_app_test?serverVersion=8.0" />
+        <server name="DATABASE_URL" value="mysql://root:mysqltests@127.0.0.1:3640/recipe_app?serverVersion=9.1.0&amp;charset=utf8mb4" />
     </php>
     <testsuites>
         <testsuite name="Project Test Suite">
