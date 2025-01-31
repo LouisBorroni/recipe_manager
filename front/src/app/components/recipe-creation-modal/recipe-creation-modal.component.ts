@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl, ValidationErrors, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RecipeService } from '../../servcices/recipe.service';
 
 export function cookingStepsValidator(control: AbstractControl): ValidationErrors | null {
   const formArray = control as FormArray;
@@ -22,7 +23,7 @@ export class RecipeCreationModalComponent {
   recipeForm: FormGroup;
   imagePreview: string | ArrayBuffer | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private recipeService: RecipeService) {
     this.recipeForm = this.fb.group({
       name: ['', Validators.required],
       category: ['', Validators.required],
@@ -37,10 +38,9 @@ export class RecipeCreationModalComponent {
 
   addStep() {
     const stepGroup = this.fb.group({
-      step: ['', Validators.required]  
+      step: ['', Validators.required]
     });
-
-    this.cookingSteps.push(stepGroup); 
+    this.cookingSteps.push(stepGroup);
   }
 
   removeStep(index: number) {
@@ -61,8 +61,22 @@ export class RecipeCreationModalComponent {
 
   submitRecipe() {
     if (this.recipeForm.valid && this.cookingSteps.length > 0) {
-      this.closeModal.emit();
-      console.log(this.recipeForm)
+      const recipeData = {
+        name: this.recipeForm.value.name,
+        category: this.recipeForm.value.category,
+        image: this.recipeForm.value.image, 
+        cookingSteps: this.cookingSteps.controls.map((stepControl: any) => stepControl.value.step) // Extraire uniquement les étapes
+      };
+
+      this.recipeService.createRecipe(recipeData).subscribe(
+        (data) => {
+          console.log('Recette créée avec succès:', data);
+          this.closeModal.emit();  // Fermer le modal après la création de la recette
+        },
+        (error) => {
+          console.error('Erreur lors de la création de la recette:', error);
+        }
+      );
     } else {
       console.log('Formulaire invalide');
     }
