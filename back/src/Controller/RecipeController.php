@@ -38,12 +38,26 @@ class RecipeController extends AbstractController
             return new JsonResponse(['error' => 'Missing required fields'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
+        if (empty($data['name'])) {
+            return new JsonResponse(['error' => 'Name cannot be empty'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+        if (empty($data['category'])) {
+            return new JsonResponse(['error' => 'Category cannot be empty'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        if (empty($data['image']) || (!preg_match('/^data:image\/(jpeg|png);base64,/', $data['image']))) {
+            return new JsonResponse(['error' => 'Invalid image format. Must be base64-encoded JPEG or PNG.'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        if (!is_array($data['cookingSteps']) || empty($data['cookingSteps'])) {
+            return new JsonResponse(['error' => 'Invalid cooking steps'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
         $recipe = new Recipe();
         $recipe->setName($data['name']);
         $recipe->setCategory($data['category']);
-        $recipe->setImage($data['image']); 
-        $recipe->setcookingSteps($data['cookingSteps']);
-
+        $recipe->setImage($data['image']);
+        $recipe->setCookingSteps($data['cookingSteps']);
         $recipe->setCreatedBy($user);
 
         $this->entityManager->persist($recipe);
@@ -56,7 +70,7 @@ class RecipeController extends AbstractController
                 'name' => $recipe->getName(),
                 'category' => $recipe->getCategory(),
                 'image' => $recipe->getImage(),
-                'cookingSteps' => $recipe->getcookingSteps()
+                'cookingSteps' => $recipe->getCookingSteps()
             ]
         ], JsonResponse::HTTP_CREATED);
     }
@@ -64,7 +78,7 @@ class RecipeController extends AbstractController
     #[Route('/api/recipes/{id}', name: 'update_recipe', methods: ['PUT'])]
     public function updateRecipe(int $id, Request $request): JsonResponse
     {
-        $user = $this->getUser();  
+        $user = $this->getUser();
 
         if (!$user) {
             return new JsonResponse(['error' => 'User not authenticated'], JsonResponse::HTTP_UNAUTHORIZED);
@@ -83,15 +97,36 @@ class RecipeController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         if (isset($data['name'])) {
+            if (empty($data['name'])) {
+                return new JsonResponse(['error' => 'Name cannot be empty'], JsonResponse::HTTP_BAD_REQUEST);
+            }
+            if (!is_string($data['name']) || strlen($data['name']) > 255) {
+                return new JsonResponse(['error' => 'Invalid name'], JsonResponse::HTTP_BAD_REQUEST);
+            }
             $recipe->setName($data['name']);
         }
+
         if (isset($data['category'])) {
+            if (empty($data['category'])) {
+                return new JsonResponse(['error' => 'Category cannot be empty'], JsonResponse::HTTP_BAD_REQUEST);
+            }
+            if (!is_string($data['category']) || strlen($data['category']) > 255) {
+                return new JsonResponse(['error' => 'Invalid category'], JsonResponse::HTTP_BAD_REQUEST);
+            }
             $recipe->setCategory($data['category']);
         }
+
         if (isset($data['image'])) {
+            if (empty($data['image']) || (!preg_match('/^data:image\/(jpeg|png);base64,/', $data['image']))) {
+                return new JsonResponse(['error' => 'Invalid image format. Must be base64-encoded JPEG or PNG.'], JsonResponse::HTTP_BAD_REQUEST);
+            }
             $recipe->setImage($data['image']);
         }
+
         if (isset($data['cookingSteps'])) {
+            if (!is_array($data['cookingSteps']) || empty($data['cookingSteps'])) {
+                return new JsonResponse(['error' => 'Invalid cooking steps'], JsonResponse::HTTP_BAD_REQUEST);
+            }
             $recipe->setCookingSteps($data['cookingSteps']);
         }
 
@@ -108,6 +143,7 @@ class RecipeController extends AbstractController
             ]
         ], JsonResponse::HTTP_OK);
     }
+
 
     #[Route('/api/recipes/{id}', name: 'delete_recipe', methods: ['DELETE'])]
     public function deleteRecipe(int $id): JsonResponse
