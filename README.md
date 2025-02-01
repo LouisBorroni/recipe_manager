@@ -23,10 +23,10 @@ Prérequis : - docker d'installé sur la machine - php avec les extienstions : p
         - npm i
 
 Démarrer l'application :
-1 - démarrer la base de données :
-avoir docker en marche sur son ordi
-cd docker
-docker compose up -d
+    1 - démarrer la base de données :
+        avoir docker en marche sur son ordi
+        cd docker
+        docker compose up -d
 
     2 - démarrer le back
         cd back
@@ -34,7 +34,8 @@ docker compose up -d
 
     3 - démarer le front
         cd front
-        ng serve
+        ng serve ou npm start
+        se créer un compte ou utiliser un compte existant ("user1@example.com" "password123")
 
 Pour les tests unitaires :
 1 - créer une base de tests

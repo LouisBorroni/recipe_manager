@@ -112,4 +112,36 @@ export class RecipeService {
         })
     );
   }
+  deleteRecipe(recipeId: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+    return from(
+      fetch(`${this.baseUrl}/${recipeId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(err => {
+            throw new Error(err.message || 'Failed to delete recipe');
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Recipe deleted:', data);
+        return data;
+      })
+      .catch(error => {
+        console.error('Delete recipe error:', error);
+        throw error;
+      })
+    );
+  }
+
 }
