@@ -1,8 +1,6 @@
 <?php
-// src/Controller/RegistrationController.php
 namespace App\Controller;
 
-use App\DTO\RegisterDTO;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,7 +9,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -20,38 +17,44 @@ class RegistrationController extends AbstractController
         Request $request,
         UserPasswordHasherInterface $passwordHasher,
         EntityManagerInterface $entityManager,
-        UserRepository $userRepository,
-        ValidatorInterface $validator
+        UserRepository $userRepository
     ): JsonResponse {
         $data = json_decode($request->getContent(), true);
 
-        $registerDTO = new RegisterDTO();
-        $registerDTO->email = $data['email'];
-        $registerDTO->pseudo = $data['pseudo'];
-        $registerDTO->password = $data['password'];
 
-        $errors = $validator->validate($registerDTO);
-
-        if (count($errors) > 0) {
-            $errorMessages = [];
-            foreach ($errors as $error) {
-                $errorMessages[] = $error->getMessage();
-            }
-            return new JsonResponse(['errors' => $errorMessages], JsonResponse::HTTP_BAD_REQUEST);
-        }
-
-        if (!filter_var($registerDTO->email, FILTER_VALIDATE_EMAIL)) {
+        if (empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             return new JsonResponse(['error' => 'The email is not valid.'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
-        if ($userRepository->findOneBy(['email' => $registerDTO->email])) {
+        if ($userRepository->findOneBy(['email' => $data['email']])) {
             return new JsonResponse(['error' => 'Email already used.'], JsonResponse::HTTP_CONFLICT);
         }
 
+        if (empty($data['pseudo']) || strlen($data['pseudo']) < 4) {
+            return new JsonResponse(['error' => 'Pseudo must be at least 4 characters long.'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        if (empty($data['password']) || strlen($data['password']) < 10) {
+            return new JsonResponse(['error' => 'Password must be at least 10 characters long.'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        if (!preg_match('/[A-Z]/', $data['password'])) {
+            return new JsonResponse(['error' => 'Password must contain at least one uppercase letter.'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        if (!preg_match('/[0-9]/', $data['password'])) {
+            return new JsonResponse(['error' => 'Password must contain at least one number.'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        if (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $data['password'])) {
+            return new JsonResponse(['error' => 'Password must contain at least one special character.'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
         $user = new User();
-        $user->setEmail($registerDTO->email);
-        $user->setPseudo($registerDTO->pseudo); 
-        $hashedPassword = $passwordHasher->hashPassword($user, $registerDTO->password);
+        $user->setEmail($data['email']);
+        $user->setPseudo($data['pseudo']);
+        
+        $hashedPassword = $passwordHasher->hashPassword($user, $data['password']);
         $user->setPassword($hashedPassword);
 
         $entityManager->persist($user);
