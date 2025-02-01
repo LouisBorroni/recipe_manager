@@ -21,7 +21,7 @@ export class RecipeUpdateModalComponent implements OnChanges {
     this.recipeForm = this.fb.group({
       name: ['', Validators.required],
       category: ['', Validators.required],
-      image: [''],  // Nous n'avons plus besoin de l'URL de l'image
+      image: [''],  
       cookingSteps: ['', Validators.required],
     });
   }
@@ -31,11 +31,10 @@ export class RecipeUpdateModalComponent implements OnChanges {
       this.recipeForm = this.fb.group({
         name: [this.selectedRecipe.name, Validators.required],
         category: [this.selectedRecipe.category, Validators.required],
-        image: [this.selectedRecipe.image || ''], // Image déjà existante
+        image: [this.selectedRecipe.image || ''], 
         cookingSteps: [this.selectedRecipe.cookingSteps?.join(', ') || '', Validators.required],
       });
 
-      // Prévisualisation de l'image si elle existe
       this.imagePreview = this.selectedRecipe.image || null;
     }
   }
@@ -51,26 +50,25 @@ export class RecipeUpdateModalComponent implements OnChanges {
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result as string | ArrayBuffer;
-        this.recipeForm.patchValue({ image: this.imagePreview }); // Mettre à jour le formulaire avec l'image sélectionnée
+        this.recipeForm.patchValue({ image: this.imagePreview }); 
       };
-      reader.readAsDataURL(file);  // Lire l'image sous forme de data URL pour la prévisualisation
+      reader.readAsDataURL(file);
     }
   }
 
-  // Méthode pour soumettre la mise à jour de la recette
   updateRecipe() {
     if (this.recipeForm.valid) {
       const updatedRecipe = {
         ...this.recipeForm.value,
         cookingSteps: this.recipeForm.value.cookingSteps
-          .split(',') // Séparer les étapes par des virgules
-          .map((step: string) => step.trim()) // Supprimer les espaces supplémentaires
+          .split(',')
+          .map((step: string) => step.trim()) 
       };
       // Envoi des modifications via le service
       this.recipeService.updateRecipe(this.selectedRecipe.id, updatedRecipe).subscribe(
         (response) => {
           console.log('Recette mise à jour', response);
-          this.closeModal(); // Fermer la modale après mise à jour
+          this.closeModal(); 
         },
         (error) => {
           console.error('Erreur lors de la mise à jour de la recette', error);
