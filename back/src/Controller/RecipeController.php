@@ -153,4 +153,26 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    #[Route('/api/trend_recipes', name: 'top_recipes', methods: ['GET'])]
+    public function getTopRecipes(): JsonResponse
+    {
+        $recipes = $this->recipeRepository->createQueryBuilder('r')
+            ->orderBy('r.views', 'DESC') 
+            ->setMaxResults(30)          
+            ->getQuery()
+            ->getResult();
+
+        $recipeData = array_map(function (Recipe $recipe) {
+            return [
+                'id' => $recipe->getId(),
+                'name' => $recipe->getName(),
+                'category' => $recipe->getCategory(),
+                'image' => $recipe->getImage(),
+                'cookingSteps' => $recipe->getCookingSteps(),
+                'views' => $recipe->getViews(),
+            ];
+        }, $recipes);
+
+        return new JsonResponse($recipeData, JsonResponse::HTTP_OK);
+    }
 }
