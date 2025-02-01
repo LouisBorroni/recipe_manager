@@ -5,10 +5,11 @@ import { selectRecipes } from '../../stores/user/user.selector';
 import { RecipeModaleComponent } from '../../shared/recipe-modale/recipe-modale.component';
 import { CommonModule } from '@angular/common';
 import { RecipeService } from '../../servcices/recipe.service';
+import { RecipeUpdateModalComponent } from '../recipe-update-modal/recipe-update-modal.component';
 
 @Component({
   selector: 'app-recipes',
-  imports: [CommonModule, RecipeModaleComponent],
+  imports: [CommonModule, RecipeModaleComponent, RecipeUpdateModalComponent],
   templateUrl: './recipes.component.html',
   styleUrl: './recipes.component.scss'
 })
@@ -27,6 +28,7 @@ export class RecipesComponent implements OnInit {
   isModalVisible = false;
   selectedRecipeToDelete: any = null;
   isDeleteModalVisible = false
+  isUpdateModalVisible: boolean = false;
 
 
   constructor(private store: Store, private recipeService: RecipeService) {
@@ -38,6 +40,17 @@ export class RecipesComponent implements OnInit {
       this.recipes = recipes; 
     });
   }
+
+  openUpdateModal(recipe: any, event: Event) {
+    event.stopPropagation();  // Empêche d'ouvrir la carte de recette
+    this.selectedRecipe = recipe;
+    this.isUpdateModalVisible = true;
+  }
+
+  closeUpdateModal() {
+    this.isUpdateModalVisible = false;
+  }
+  
 
   confirmDelete(recipe: any, event: Event) {
     event.stopPropagation(); 

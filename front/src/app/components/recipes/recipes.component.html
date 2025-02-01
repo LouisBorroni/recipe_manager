@@ -6,6 +6,10 @@
   <div class="recipes-grid" *ngIf="recipes.length > 0">
     <div class="recipe-card" *ngFor="let recipe of paginatedRecipes" (click)="openModal(recipe)">
 
+      <button class="update-btn" (click)="openUpdateModal(recipe, $event)">
+        <i class="fas fa-pen"></i>
+      </button>
+
       <button class="delete-btn" (click)="confirmDelete(recipe, $event)">
         <i class="fas fa-times"></i>
       </button>
@@ -43,6 +47,14 @@
     [selectedRecipe]="selectedRecipe" 
     (close)="closeModal()">
   </app-recipe-modale>
+
+  <app-recipe-update-modal 
+  [isVisible]="isUpdateModalVisible" 
+  [selectedRecipe]="selectedRecipe" 
+  (close)="closeUpdateModal()">
+</app-recipe-update-modal>
+
+
 
   <div class="modal-overlay" *ngIf="isDeleteModalVisible">
     <div class="modal">

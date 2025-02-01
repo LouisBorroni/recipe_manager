@@ -1,0 +1,285 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  width: 800px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+}
+
+.modal-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.form-sections {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-section,
+.right-section {
+  width: 48%;
+  text-align: left;
+}
+
+.left-section {
+  padding-right: 20px;
+}
+
+.right-section {
+  padding-left: 20px;
+}
+
+.separator {
+  width: 1px;
+  background-color: green;
+  margin: 0 20px;
+}
+
+.image-upload {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.image-upload input[type="file"] {
+  display: none;
+}
+
+.image-upload label {
+  display: block;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  transition: background-color 0.3s;
+  margin-bottom: 15px;
+}
+
+.image-upload label:hover {
+  background-color: #45a049;
+}
+
+.image-preview {
+  margin-top: 10px;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.image-preview img {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 5px;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.steps-list {
+  max-height: 100px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.step {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+textarea {
+  width: calc(100% - 40px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  min-height: 50px;
+}
+
+.remove-step-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  align-self: flex-start;
+}
+
+.remove-step-btn:hover {
+  background-color: #d32f2f;
+}
+
+.add-step-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.submit-btn {
+  width: 48%;
+  padding: 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+.cancel-btn {
+  width: 48%;
+  padding: 12px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #e53935;
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+  border-color: #4caf50;
+  outline: none;
+  background-color: #e8f5e9;
+}
+
+input[type="text"]:hover,
+select:hover,
+textarea:hover {
+  border-color: #888;
+}
+
+label {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  display: inline-block;
+  color: #333;
+}
+
+select {
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+textarea {
+  min-height: 60px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+textarea:focus {
+  border-color: #4caf50;
+  outline: none;
+  background-color: #e8f5e9;
+}
+
+.left-section label {
+  margin-bottom: 10px;
+}
+
+.left-section select {
+  margin-bottom: 15px;
+}
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.cancel-btn,
+.submit-btn {
+  width: 45%; /* Réduit la largeur des boutons */
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+
+.cancel-btn:hover {
+  background-color: #e53935;
+}
+
+.submit-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
