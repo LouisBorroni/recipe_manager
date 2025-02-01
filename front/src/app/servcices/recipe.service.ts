@@ -6,6 +6,7 @@ import { Observable, from } from 'rxjs';
 })
 export class RecipeService {
   private baseUrl = 'http://localhost:8000/api/recipes';
+  private trendUrl = 'http://localhost:8000/api/trend_recipes';
 
   constructor() {}
 
@@ -25,7 +26,7 @@ export class RecipeService {
         body: JSON.stringify({
           name: recipeData.name,
           category: recipeData.category,
-          image: recipeData.image, // Image en base64
+          image: recipeData.image,
           cookingSteps: recipeData.cookingSteps,
         }),
       })
@@ -75,6 +76,38 @@ export class RecipeService {
         })
         .catch(error => {
           console.error('Add view error:', error);
+          throw error;
+        })
+    );
+  }
+  
+  getTrendRecipes(): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+    return from(
+      fetch(this.trendUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(err => {
+              throw new Error(err.message || 'Failed to fetch top recipes');
+            });
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('Top recipes fetched:', data);
+          return data;
+        })
+        .catch(error => {
+          console.error('Get top recipes error:', error);
           throw error;
         })
     );
