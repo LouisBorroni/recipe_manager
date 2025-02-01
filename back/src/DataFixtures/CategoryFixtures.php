@@ -6,6 +6,7 @@ use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
+
 class CategoryFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
@@ -35,3 +36,11 @@ class CategoryFixtures extends Fixture
         $manager->flush();
     }
 }
+
+//PHP Fatal error:  Uncaught Error: Class "Doctrine\Bundle\FixturesBundle\Fixture" not found in C:\Users\adm\recipe_manager\back\src\DataFixtures\CategoryFixtures.php:9
+//Stack trace:
+#0 {main}
+  //thrown in C:\Users\adm\recipe_manager\back\src\DataFixtures\CategoryFixtures.php on line 9
+
+  // Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['all' => true],
+
