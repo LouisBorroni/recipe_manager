@@ -34,6 +34,7 @@ class UserController extends AbstractController
             'id' => $user->getId(),
             'email' => $user->getEmail(),
             'roles' => $user->getRoles(),
+            'pseudo' => $user->getPseudo(),
             'userRecipes' => []
         ];
 
@@ -44,7 +45,8 @@ class UserController extends AbstractController
                 'category' => $recipe->getCategory(),
                 'image' => $recipe->getImage(),
                 'cookingSteps' => $recipe->getCookingSteps(),
-                'views' => $recipe->getViews()
+                'views' => $recipe->getViews(),
+                'createdBy' => $recipe->getCreatedBy()->getPseudo()
             ];
         }
 

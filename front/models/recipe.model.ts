@@ -5,4 +5,5 @@ export interface Recipe {
     image: string;
     cookingSteps: string[];
     views: number;
+    createdBy: string;
   }
