@@ -64,16 +64,45 @@
   }
 
   .recipe-card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: center;
-    transition: transform 0.2s ease-in-out;
-    opacity: 0;
-    animation: fadeInCard 1s forwards;
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+
     &:hover {
+      transform: translateY(-5px);
       cursor: pointer;
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background-color: #ff4d4f;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      transition: background-color 0.2s, transform 0.2s;
+
+      &:hover {
+        background-color: #d9363e;
+        transform: scale(1.1);
+      }
+
+      i {
+        pointer-events: none;
+      }
     }
   }
 
@@ -186,5 +215,54 @@
     to {
       opacity: 1;
     }
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal-actions button {
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-actions button:first-child {
+  background-color: #4caf50;
+  color: white;
+  border-radius: 5px;
+  &:hover {
+    background-color: #388136;
+  }
+}
+
+.modal-actions button:last-child {
+  background: #ff4d4f;
+  color: white;
+  border-radius: 5px;
+  &:hover {
+    background-color: #d9363e;
   }
 }

@@ -5,6 +5,11 @@
 
   <div class="recipes-grid" *ngIf="recipes.length > 0">
     <div class="recipe-card" *ngFor="let recipe of paginatedRecipes" (click)="openModal(recipe)">
+
+      <button class="delete-btn" (click)="confirmDelete(recipe, $event)">
+        <i class="fas fa-times"></i>
+      </button>
+    
       <img [src]="recipe.image" [alt]="recipe.name" />
       <h3>{{ recipe.name }}</h3>
 
@@ -38,6 +43,18 @@
     [selectedRecipe]="selectedRecipe" 
     (close)="closeModal()">
   </app-recipe-modale>
+
+  <div class="modal-overlay" *ngIf="isDeleteModalVisible">
+    <div class="modal">
+      <h3>Confirmer la suppression</h3>
+      <p>Voulez-vous vraiment supprimer la recette "{{ selectedRecipeToDelete?.name }}" ?</p>
+      <div class="modal-actions">
+        <button (click)="deleteRecipe()">Supprimer</button>
+        <button (click)="closeDeleteModal()">Annuler</button>
+      </div>
+    </div>
+  </div>
+  
 
   <!-- Pagination -->
   <div *ngIf="recipes.length > 0" class="pagination">

@@ -21,6 +21,13 @@ export class RecipesComponent implements OnInit {
 
   recipes$: Observable<any[]>;
   recipes: any[] = []; 
+  currentPage = 0;
+  itemsPerPage = 8;
+  selectedRecipe: any = null;
+  isModalVisible = false;
+  selectedRecipeToDelete: any = null;
+  isDeleteModalVisible = false
+
 
   constructor(private store: Store, private recipeService: RecipeService) {
     this.recipes$ = this.store.select(selectRecipes);
@@ -32,10 +39,30 @@ export class RecipesComponent implements OnInit {
     });
   }
 
-  currentPage = 0;
-  itemsPerPage = 8;
-  selectedRecipe: any = null;
-  isModalVisible = false;
+  confirmDelete(recipe: any, event: Event) {
+    event.stopPropagation(); 
+    this.selectedRecipeToDelete = recipe;
+    this.isDeleteModalVisible = true;
+  }
+
+  deleteRecipe() {
+    if (!this.selectedRecipeToDelete) return;
+  
+    this.recipeService.deleteRecipe(this.selectedRecipeToDelete.id).subscribe({
+      next: () => {
+        this.recipes = this.recipes.filter(r => r.id !== this.selectedRecipeToDelete.id);
+        this.isDeleteModalVisible = false;
+        this.selectedRecipeToDelete = null;
+      },
+      error: (error) => console.error('Error deleting recipe:', error),
+    });
+  }
+
+  closeDeleteModal() {
+    this.isDeleteModalVisible = false;
+    this.selectedRecipeToDelete = null;
+  }
+
 
   openModal(recipe: any) {
     this.selectedRecipe = recipe;
