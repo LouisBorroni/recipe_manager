@@ -39,7 +39,6 @@ export class RecipeService {
           return response.json();
         })
         .then((data) => {
-          console.log('Recipe created:', data);
           return data;
         })
         .catch(error => {
@@ -71,7 +70,6 @@ export class RecipeService {
           return response.json();
         })
         .then((data) => {
-          console.log('View incremented:', data);
           return data;
         })
         .catch(error => {
@@ -103,7 +101,6 @@ export class RecipeService {
           return response.json();
         })
         .then((data) => {
-          console.log('Top recipes fetched:', data);
           return data;
         })
         .catch(error => {
@@ -134,7 +131,6 @@ export class RecipeService {
         return response.json();
       })
       .then((data) => {
-        console.log('Recipe deleted:', data);
         return data;
       })
       .catch(error => {
@@ -173,7 +169,6 @@ export class RecipeService {
           return response.json();
         })
         .then((data) => {
-          console.log('Recipe updated:', data);
           return data;
         })
         .catch(error => {

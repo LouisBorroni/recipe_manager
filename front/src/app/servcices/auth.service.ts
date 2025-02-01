@@ -114,8 +114,6 @@ export class AuthService {
   }
 
   register(user: any): Promise<any> {
-    console.log(user)
-
     return fetch(`${this.baseUrl}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

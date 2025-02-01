@@ -67,7 +67,7 @@ export class RecipeUpdateModalComponent implements OnChanges {
       // Envoi des modifications via le service
       this.recipeService.updateRecipe(this.selectedRecipe.id, updatedRecipe).subscribe(
         (response) => {
-          console.log('Recette mise à jour', response);
+          console.log('Recette mise à jour');
           this.closeModal(); 
         },
         (error) => {

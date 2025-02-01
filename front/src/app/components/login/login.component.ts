@@ -24,7 +24,7 @@ export class LoginComponent {
 
     try {
       const response = await this.authService.login(this.credentials);
-      console.log('User logged in successfully!', response);
+      console.log('User logged in successfully!');
     } catch (error) {
       console.error('Error logging in:', error);
     }

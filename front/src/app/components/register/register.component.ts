@@ -29,7 +29,7 @@ export class RegisterComponent {
 
     try {
       const response = await this.authService.register(this.user);
-      console.log('User registered successfully!', response);
+      console.log('User registered successfully!');
     } catch (error) {
       console.error('Error registering user:', error);
     }

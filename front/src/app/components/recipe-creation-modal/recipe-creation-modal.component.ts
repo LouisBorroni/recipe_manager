@@ -56,7 +56,7 @@ export class RecipeCreationModalComponent {
   
       this.recipeService.createRecipe(recipeData).subscribe(
         (data) => {
-          console.log('Recette créée avec succès:', data);
+          console.log('Recette créée avec succès:');
           this.closeModal.emit(); 
         },
         (error) => {
