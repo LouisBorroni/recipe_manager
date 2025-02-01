@@ -27,7 +27,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
             ['Lasagnes', 'Plat principal', 'lasagnes.jpg', ['Monter les couches', 'Cuire au four'], 1],
             ['Crêpes sucrées', 'Dessert', 'crepes_sucrees.jpg', ['Mélanger les ingrédients', 'Cuire à la poêle'], 0],
             ['Mousse au chocolat', 'Dessert', 'mousse_chocolat.jpg', ['Faire fondre le chocolat', 'Incorporer les blancs montés en neige'], 1],
-            ['Smoothie banane-fraise', 'Boisson', 'smoothie_banane_fraise.jpg', ['Mixer les ingrédients'], 2],
+            ['Smoothie banane-fraise', 'Dessert', 'smoothie_banane_fraise.jpg', ['Mixer les ingrédients'], 2],
         ];
 
         foreach ($recipes as [$name, $category, $image, $cookingSteps, $userIndex]) {

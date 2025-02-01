@@ -22,7 +22,8 @@ class RegistrationControllerTest extends WebTestCase
             ['CONTENT_TYPE' => 'application/json'],
             json_encode([
                 'email' => 'test@example.com',
-                'password' => 'password123'
+                'password' => 'password123',
+                'pseudo' => 'test'
             ])
         );
 
@@ -38,10 +39,10 @@ class RegistrationControllerTest extends WebTestCase
         $client = static::createClient();
         $this->entityManager = $client->getContainer()->get('doctrine')->getManager();
 
-        // Créer un utilisateur existant pour le test
         $user = new User();
         $user->setEmail('existing@example.com');
-        $user->setPassword('hashedpassword'); // Assurez-vous d'utiliser un hash de mot de passe valide
+        $user->setPassword('hashedpassword'); 
+        $user->setPseudo('existing');
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
@@ -53,7 +54,8 @@ class RegistrationControllerTest extends WebTestCase
             ['CONTENT_TYPE' => 'application/json'],
             json_encode([
                 'email' => 'existing@example.com',
-                'password' => 'password123'
+                'password' => 'password123',
+                'pseudo' => 'existing'
             ])
         );
 

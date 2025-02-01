@@ -170,6 +170,7 @@ class RecipeController extends AbstractController
                 'image' => $recipe->getImage(),
                 'cookingSteps' => $recipe->getCookingSteps(),
                 'views' => $recipe->getViews(),
+                'createdBy' => $recipe->getCreatedBy()->getPseudo()
             ];
         }, $recipes);
 

@@ -13,8 +13,8 @@ import { RouterLink } from '@angular/router';
   imports: [CommonModule, FormsModule]
 })
 export class RegisterComponent {
-  user: { username: string; email: string; password: string; confirmPassword: string } = {
-    username: '',
+  user: { email: string; pseudo: string; password: string; confirmPassword: string } = {
+    pseudo: '',
     email: '',
     password: '',
     confirmPassword: ''

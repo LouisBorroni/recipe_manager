@@ -19,15 +19,16 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $usersData = [
-            ["admin@example.com", "password123", ["ROLE_ADMIN"]],
-            ["user1@example.com", "password123", ["ROLE_USER"]],
-            ["user2@example.com", "password123", ["ROLE_USER"]]
+            ["admin@example.com", "password123", ["ROLE_ADMIN"], "admin123"],
+            ["user1@example.com", "password123", ["ROLE_USER"], "user1pseudo"],
+            ["user2@example.com", "password123", ["ROLE_USER"], "user2pseudo"]
         ];
 
-        foreach ($usersData as $key => [$email, $password, $roles]) {
+        foreach ($usersData as $key => [$email, $password, $roles, $pseudo]) {
             $user = new User();
             $user->setEmail($email);
             $user->setRoles($roles);
+            $user->setPseudo($pseudo); 
 
             $hashedPassword = $this->passwordHasher->hashPassword($user, $password);
             $user->setPassword($hashedPassword);

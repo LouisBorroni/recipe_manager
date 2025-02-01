@@ -34,6 +34,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     /**
+     * @var string The user's pseudo
+     */
+    #[ORM\Column(length: 255)]
+    private string $pseudo;
+
+    /**
      * @var Collection<int, Recipe>
      */
     #[ORM\OneToMany(targetEntity: Recipe::class, mappedBy: 'createdBy', orphanRemoval: true)]
@@ -144,6 +150,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $recipe->setCreatedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPseudo(): string
+    {
+        return $this->pseudo;
+    }
+
+    /**
+     * @param string $pseudo
+     * @return User
+     */
+    public function setPseudo(string $pseudo): static
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }
