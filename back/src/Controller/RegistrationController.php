@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\User;
@@ -14,37 +13,53 @@ use Symfony\Component\Routing\Annotation\Route;
 class RegistrationController extends AbstractController
 {
     #[Route('/api/register', name: 'app_register', methods: ['POST'])]
-    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, UserRepository $userRepository): JsonResponse
-    {
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $passwordHasher,
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository
+    ): JsonResponse {
         $data = json_decode($request->getContent(), true);
 
-        // Vérifier si l'email existe déjà
+
+        if (empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            return new JsonResponse(['error' => 'The email is not valid.'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
         if ($userRepository->findOneBy(['email' => $data['email']])) {
             return new JsonResponse(['error' => 'Email already used.'], JsonResponse::HTTP_CONFLICT);
         }
 
-        // Vérifier si le pseudo existe déjà
-        if (isset($data['pseudo']) && $userRepository->findOneBy(['pseudo' => $data['pseudo']])) {
-            return new JsonResponse(['error' => 'Pseudo already used.'], JsonResponse::HTTP_CONFLICT);
+        if (empty($data['pseudo']) || strlen($data['pseudo']) < 4) {
+            return new JsonResponse(['error' => 'Pseudo must be at least 4 characters long.'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
-        // Vérifier si le pseudo est bien défini
-        if (!isset($data['pseudo']) || empty($data['pseudo'])) {
-            return new JsonResponse(['error' => 'Pseudo is required.'], JsonResponse::HTTP_BAD_REQUEST);
+        if (empty($data['password']) || strlen($data['password']) < 10) {
+            return new JsonResponse(['error' => 'Password must be at least 10 characters long.'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
-        // Créer un nouvel utilisateur
+        if (!preg_match('/[A-Z]/', $data['password'])) {
+            return new JsonResponse(['error' => 'Password must contain at least one uppercase letter.'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        if (!preg_match('/[0-9]/', $data['password'])) {
+            return new JsonResponse(['error' => 'Password must contain at least one number.'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        if (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $data['password'])) {
+            return new JsonResponse(['error' => 'Password must contain at least one special character.'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
         $user = new User();
         $user->setEmail($data['email']);
-        $user->setPseudo($data['pseudo']);  // Assigner le pseudo
+        $user->setPseudo($data['pseudo']);
+        
         $hashedPassword = $passwordHasher->hashPassword($user, $data['password']);
         $user->setPassword($hashedPassword);
 
-        // Sauvegarder l'utilisateur dans la base de données
         $entityManager->persist($user);
         $entityManager->flush();
 
-        // Réponse avec un message de succès
         return new JsonResponse(['message' => 'User successfully registered'], JsonResponse::HTTP_CREATED);
     }
 }

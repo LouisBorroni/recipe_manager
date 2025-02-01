@@ -14,18 +14,16 @@ final class Version20250201114458 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add pseudo column to user table';
     }
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE user CHANGE pseudonyme pseudo VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE user ADD pseudo VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE user CHANGE pseudo pseudonyme VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE user DROP COLUMN pseudo');
     }
 }

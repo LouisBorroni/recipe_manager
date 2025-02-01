@@ -22,7 +22,7 @@ class RegistrationControllerTest extends WebTestCase
             ['CONTENT_TYPE' => 'application/json'],
             json_encode([
                 'email' => 'test@example.com',
-                'password' => 'password123',
+                'password' => 'Password123!', 
                 'pseudo' => 'test'
             ])
         );
@@ -41,7 +41,7 @@ class RegistrationControllerTest extends WebTestCase
 
         $user = new User();
         $user->setEmail('existing@example.com');
-        $user->setPassword('hashedpassword'); 
+        $user->setPassword('Password123!');
         $user->setPseudo('existing');
         $this->entityManager->persist($user);
         $this->entityManager->flush();
@@ -54,7 +54,7 @@ class RegistrationControllerTest extends WebTestCase
             ['CONTENT_TYPE' => 'application/json'],
             json_encode([
                 'email' => 'existing@example.com',
-                'password' => 'password123',
+                'password' => 'Password123!', 
                 'pseudo' => 'existing'
             ])
         );
@@ -66,16 +66,40 @@ class RegistrationControllerTest extends WebTestCase
         );
     }
 
+    public function testRegisterWithInvalidPassword()
+    {
+        $client = static::createClient();
+        $this->entityManager = $client->getContainer()->get('doctrine')->getManager();
+
+        $client->request(
+            'POST',
+            '/api/register',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode([
+                'email' => 'test2@example.com',
+                'password' => 'short',
+                'pseudo' => 'test'
+            ])
+        );
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+        $this->assertJsonStringEqualsJsonString(
+            json_encode(['error' => 'Password must be at least 10 characters long.']),
+            $client->getResponse()->getContent()
+        );
+    }
+
     protected function tearDown(): void
     {
         parent::tearDown();
-        // Supprimer les utilisateurs de test pour éviter les conflits dans d'autres tests
         if ($this->entityManager) {
             $this->entityManager->createQuery('DELETE FROM App\Entity\User u WHERE u.email LIKE :email')
                 ->setParameter('email', '%@example.com%')
                 ->execute();
             $this->entityManager->close();
-            $this->entityManager = null; // Éviter les fuites de mémoire
+            $this->entityManager = null; 
         }
     }
 }
