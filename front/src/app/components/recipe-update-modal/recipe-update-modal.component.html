@@ -1,31 +1,45 @@
 <div class="modal-overlay" *ngIf="isVisible">
-    <div class="modal">
-      <h3>Modifier la recette</h3>
+    <div class="modal-content">
+      <button class="close-btn" (click)="closeModal()" aria-label="Fermer">×</button>
   
-      <form (ngSubmit)="updateRecipe()">
-        <div class="form-group">
-          <label for="name">Nom</label>
-          <input id="name" type="text" [(ngModel)]="selectedRecipe.name" name="name" required />
+      <h2 class="modal-title">Modifier la recette</h2>
+  
+      <form [formGroup]="recipeForm" (ngSubmit)="updateRecipe()">
+        <div class="form-sections">
+          <div class="left-section">
+            <label for="name">Nom de la recette</label>
+            <input type="text" id="name" formControlName="name" required />
+  
+            <label for="category">Catégorie</label>
+            <select id="category" formControlName="category" required>
+              <option value="Entrée">Entrée</option>
+              <option value="Plat principal">Plat principal</option>
+              <option value="Dessert">Dessert</option>
+            </select>
+  
+            <div class="image-upload">
+              <label for="image">Image</label>
+              <input type="file" id="image" (change)="onImageChange($event)" accept="image/*" />
+              <div *ngIf="imagePreview" class="image-preview">
+                <img [src]="imagePreview" alt="Image sélectionnée" />
+              </div>
+            </div>
+  
+            <input type="hidden" formControlName="image" />
+          </div>
+  
+          <div class="separator"></div>
+  
+          <div class="right-section">
+            <label>Étapes de cuisson</label>
+            <textarea formControlName="cookingSteps" placeholder="Entrez les étapes de cuisson séparées par des virgules" required></textarea>
+          </div>
         </div>
   
-        <div class="form-group">
-          <label for="category">Catégorie</label>
-          <input id="category" type="text" [(ngModel)]="selectedRecipe.category" name="category" required />
-        </div>
-  
-        <div class="form-group">
-          <label for="image">Image URL</label>
-          <input id="image" type="text" [(ngModel)]="selectedRecipe.image" name="image" />
-        </div>
-  
-        <div class="form-group">
-          <label for="cookingSteps">Étapes de cuisson</label>
-          <textarea id="cookingSteps" [(ngModel)]="selectedRecipe.cookingSteps" name="cookingSteps" required></textarea>
-        </div>
-  
-        <div class="modal-actions">
-          <button type="submit">Mettre à jour</button>
-          <button type="button" (click)="closeModal()">Annuler</button>
+        <!-- Nouveau bouton Annuler -->
+        <div class="form-actions">
+          <button type="button" class="cancel-btn" (click)="closeModal()">Annuler</button>
+          <button type="submit" class="submit-btn">Valider</button>
         </div>
       </form>
     </div>
