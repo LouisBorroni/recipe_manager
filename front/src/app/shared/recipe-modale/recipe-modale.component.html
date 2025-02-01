@@ -1,0 +1,20 @@
+<div *ngIf="isVisible" class="modal-overlay">
+    <div class="modal-content">
+      <button class="close-btn" (click)="closeModal()">×</button>
+  
+      <div class="recipe-details">
+        <img [src]="selectedRecipe.image" [alt]="selectedRecipe.name" class="recipe-image"/>
+  
+        <h3>{{ selectedRecipe.name }}</h3>
+        <p><strong>Créateur:</strong> {{ selectedRecipe.createdBy }}</p>
+        <p><strong>Catégorie:</strong> {{ selectedRecipe.category }}</p>
+        <p><strong>Vues:</strong> {{ selectedRecipe.views }}</p>
+  
+        <h4>Étapes de cuisson:</h4>
+        <ol>
+          <li *ngFor="let step of selectedRecipe.cookingSteps">{{ step }}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  

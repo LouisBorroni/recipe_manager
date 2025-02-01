@@ -1,0 +1,77 @@
+<div class="recipes-page">
+  <h2>Mes Recettes</h2>
+
+  <div *ngIf="recipes.length === 0">Aucune recettes disponible</div>
+
+  <div class="recipes-grid" *ngIf="recipes.length > 0">
+    <div class="recipe-card" *ngFor="let recipe of paginatedRecipes" (click)="openModal(recipe)">
+
+      <button class="update-btn" (click)="openUpdateModal(recipe, $event)">
+        <i class="fas fa-pen"></i>
+      </button>
+
+      <button class="delete-btn" (click)="confirmDelete(recipe, $event)">
+        <i class="fas fa-times"></i>
+      </button>
+    
+      <img [src]="recipe.image" [alt]="recipe.name" />
+      <h3>{{ recipe.name }}</h3>
+
+      <div class="category">
+        <i class="fas" [ngClass]="getCategoryIcon(recipe.category)"></i>
+        <span>{{ recipe.category }}</span>
+      </div>
+
+      <div class="recipe-details">
+        <div class="creator">
+          <i class="fas fa-user"></i>
+          <span>{{ recipe.createdBy }}</span>
+        </div>
+
+        <!-- <div class="like">
+            <button (click)="toggleLike(recipe)" [class.liked]="recipe.liked">
+              <i class="fas fa-heart"></i>
+            </button>
+        </div> -->
+
+        <div class="views">
+          <i class="fas fa-eye"></i>
+          <span>{{ recipe.views }} vues</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-recipe-modale 
+    [isVisible]="isModalVisible" 
+    [selectedRecipe]="selectedRecipe" 
+    (close)="closeModal()">
+  </app-recipe-modale>
+
+  <app-recipe-update-modal 
+  [isVisible]="isUpdateModalVisible" 
+  [selectedRecipe]="selectedRecipe" 
+  (close)="closeUpdateModal()">
+</app-recipe-update-modal>
+
+
+
+  <div class="modal-overlay" *ngIf="isDeleteModalVisible">
+    <div class="modal">
+      <h3>Confirmer la suppression</h3>
+      <p>Voulez-vous vraiment supprimer la recette "{{ selectedRecipeToDelete?.name }}" ?</p>
+      <div class="modal-actions">
+        <button (click)="deleteRecipe()">Supprimer</button>
+        <button (click)="closeDeleteModal()">Annuler</button>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Pagination -->
+  <div *ngIf="recipes.length > 0" class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 0">Précédent</button>
+    <span>Page {{ currentPage + 1 }} / {{ getTotalPages() }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage + 1 >= getTotalPages()">Suivant</button>
+  </div>
+</div>

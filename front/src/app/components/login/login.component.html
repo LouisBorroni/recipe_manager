@@ -1,0 +1,19 @@
+<div class="login-page">
+  <div class="title">
+    <h1>Recipe manager</h1>
+  </div>
+  <form (ngSubmit)="onSubmit()" class="login-form">
+    <label for="username">Email :</label>
+    <input id="username" name="username" [(ngModel)]="credentials.email" required />
+
+    <label for="password">Mot de passe:</label>
+    <input id="password" name="password" type="password" [(ngModel)]="credentials.password" required />
+
+    <button type="submit">Se connecter</button>
+    
+    <!-- Lien vers la page d'inscription -->
+    <p class="register-link">
+      Vous n'avez pas de compte chez nous ? <a href="/register">Inscrivez-vous ici</a>
+    </p>
+  </form>   
+</div>

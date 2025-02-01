@@ -1,0 +1,28 @@
+<div class="register-page">
+  <div class="title">
+    <h1>Recipe manager</h1>
+  </div>
+  <form (ngSubmit)="onSubmit()" class="register-form">
+    <label for="email">Email:</label>
+    <input type="email" id="email" [(ngModel)]="user.email" name="email" required />
+
+    <label for="email">Pseudonyme:</label>
+    <input type="email" id="email" [(ngModel)]="user.pseudo" name="email" required />
+
+    <label for="password">Mot de passe:</label>
+    <input type="password" id="password" [(ngModel)]="user.password" name="password" required />
+
+    <label for="confirmPassword">Confirmation:</label>
+    <input type="password" id="confirmPassword" [(ngModel)]="user.confirmPassword" name="confirmPassword" required />
+    @if(user.password && user.confirmPassword && user.password !== user.confirmPassword){
+      <span class="error-message">
+        Les mots de passe ne correspondent pas !
+      </span>
+    }    
+    <button type="submit">S'inscrire</button>
+
+    <p class="login-link">
+      Vous avez déjà un compte ? <a href="/login"><br>Connectez-vous ici</a>
+    </p>
+  </form>
+</div>
