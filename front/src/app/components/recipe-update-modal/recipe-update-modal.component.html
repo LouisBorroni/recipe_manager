@@ -1,0 +1,33 @@
+<div class="modal-overlay" *ngIf="isVisible">
+    <div class="modal">
+      <h3>Modifier la recette</h3>
+  
+      <form (ngSubmit)="updateRecipe()">
+        <div class="form-group">
+          <label for="name">Nom</label>
+          <input id="name" type="text" [(ngModel)]="selectedRecipe.name" name="name" required />
+        </div>
+  
+        <div class="form-group">
+          <label for="category">Catégorie</label>
+          <input id="category" type="text" [(ngModel)]="selectedRecipe.category" name="category" required />
+        </div>
+  
+        <div class="form-group">
+          <label for="image">Image URL</label>
+          <input id="image" type="text" [(ngModel)]="selectedRecipe.image" name="image" />
+        </div>
+  
+        <div class="form-group">
+          <label for="cookingSteps">Étapes de cuisson</label>
+          <textarea id="cookingSteps" [(ngModel)]="selectedRecipe.cookingSteps" name="cookingSteps" required></textarea>
+        </div>
+  
+        <div class="modal-actions">
+          <button type="submit">Mettre à jour</button>
+          <button type="button" (click)="closeModal()">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

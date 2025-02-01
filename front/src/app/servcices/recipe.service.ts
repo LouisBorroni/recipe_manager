@@ -144,4 +144,43 @@ export class RecipeService {
     );
   }
 
+  updateRecipe(recipeId: number, recipeData: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+
+    return from(
+      fetch(`${this.baseUrl}/${recipeId}`, {
+        method: 'PUT',  
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: recipeData.name,
+          category: recipeData.category,
+          image: recipeData.image,
+          cookingSteps: recipeData.cookingSteps,
+        }),
+      })
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(err => {
+              throw new Error(err.message || 'Failed to update recipe');
+            });
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('Recipe updated:', data);
+          return data;
+        })
+        .catch(error => {
+          console.error('Update recipe error:', error);
+          throw error;
+        })
+    );
+  }
+
 }
