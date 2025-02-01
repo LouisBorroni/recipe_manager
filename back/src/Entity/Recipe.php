@@ -36,11 +36,11 @@ class Recipe
     private ?string $image = null;
 
     #[ORM\ManyToOne(targetEntity: Category::class)]
-    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")] // 🔥 Suppression en cascade si la catégorie est supprimée
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")] //  Suppression en cascade si la catégorie est supprimée LL
     private Category $category;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")] // 🔥 Suppression en cascade si l'utilisateur est supprimé
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")] //  Suppression en cascade si l'utilisateur est supprimé LL
     private User $user;
 
     public function getId(): ?int 

@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->email; // Utilisé pour l'authentification. LL
     }
 
     public function getPassword(): ?string

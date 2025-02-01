@@ -21,12 +21,10 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $recipes = [
-            // ✅ Recettes originales
+              // Liste de recettes pré-définies avec leurs attributs LL
             ['Salade César', 'Une salade classique avec du poulet grillé.', 'Laitue, Poulet, Croutons, Parmesan, Sauce César', '1. Griller le poulet. 2. Mélanger avec la laitue. 3. Ajouter la sauce.', 'Facile', 15, 0, 0],
             ['Bœuf Bourguignon', 'Un plat mijoté de la cuisine française.', 'Bœuf, Vin rouge, Carottes, Oignons, Champignons', '1. Faire revenir la viande. 2. Ajouter les légumes. 3. Laisser mijoter.', 'Difficile', 180, 1, 1],
             ['Tarte aux Fraises', 'Une tarte sucrée aux fraises fraîches.', 'Pâte sablée, Crème pâtissière, Fraises, Sucre glace', '1. Cuire la pâte. 2. Ajouter la crème. 3. Disposer les fraises.', 'Moyenne', 45, 2, 2],
-            
-            // ✅ 15 nouvelles recettes
             ['Soupe de potiron', 'Une soupe douce et réconfortante.', 'Potiron, Oignon, Bouillon, Crème', '1. Cuire le potiron. 2. Mixer avec le bouillon. 3. Ajouter la crème.', 'Facile', 30, 0, 1],
             ['Ratatouille', 'Un mélange de légumes méditerranéens.', 'Aubergines, Courgettes, Poivrons, Tomates', '1. Couper les légumes. 2. Faire revenir à feu doux.', 'Facile', 45, 1, 0],
             ['Poulet au curry', 'Un plat épicé et savoureux.', 'Poulet, Curry, Crème, Riz', '1. Faire revenir le poulet. 2. Ajouter le curry et la crème.', 'Moyenne', 40, 1, 2],
@@ -65,8 +63,9 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    public function getDependencies(): array
+    public function getDependencies(): array 
     {
+        // Définit les dépendances pour garantir que les catégories et utilisateurs sont disponibles LL
         return [
             CategoryFixtures::class,
             UserFixtures::class,

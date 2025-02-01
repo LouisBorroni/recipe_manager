@@ -10,6 +10,7 @@ class CategoryFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        // Liste des catégories à insérer avec leur description. LL
         $categories = [
             ["Entrées", "Des plats légers pour commencer un repas."],
             ["Plats", "Recettes principales pour le déjeuner ou le dîner."],
@@ -18,14 +19,19 @@ class CategoryFixtures extends Fixture
         ];
 
         foreach ($categories as $key => [$name, $description]) {
+            // Création d'une nouvelle catégorie et assignation de ses valeurs. LL
             $category = new Category();
             $category->setName($name);
             $category->setDescription($description);
 
+            // Préparation de l'enregistrement en base de données. LL
             $manager->persist($category);
+
+            // Ajout d'une référence pour lier cette catégorie à d'autres fixtures si besoin. LL
             $this->addReference("category_$key", $category);
         }
 
+        // Enregistre toutes les catégories en base de données. LL
         $manager->flush();
     }
 }
