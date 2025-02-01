@@ -38,8 +38,8 @@ Démarrer l'application :
         se créer un compte ou utiliser un compte existant ("user1@example.com" "password123")
 
 Pour les tests unitaires :
-1 - créer une base de tests
-avoir docker qui tourne
+    1 - créer une base de tests
+        avoir docker qui tourne
 
         dans le .env.test  ajouter la var d'environnement si c'est pas déjà fait : DATABASE_URL="mysql://root:mysqltests@127.0.0.1:3640/recipe_app?serverVersion=9.1.0&charset=utf8mb4"
 
