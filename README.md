@@ -17,7 +17,7 @@ Prérequis : - docker d'installé sur la machine - php avec les extienstions : p
         - php bin/console lexik:jwt:generate-keypair
         - php bin/console d:d:c
         - php bin/console d:m:m
-        - (fixtures)
+        - php bin/console doctrine:fixtures:load
     3 - front
         - cd front
         - npm i
